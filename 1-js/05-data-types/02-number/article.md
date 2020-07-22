@@ -1,16 +1,16 @@
-# Numbers
+# Numbers সংখ্যা
 
-In modern JavaScript, there are two types of numbers:
+In modern JavaScript, there are two types of numbers:আধুনিক জাভাস্ক্রিপ্টে সংখ্যা দুই প্রকার।
 
 1. Regular numbers in JavaScript are stored in 64-bit format [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754-2008_revision), also known as "double precision floating point numbers". These are numbers that we're using most of the time, and we'll talk about them in this chapter.
 
 2. BigInt numbers, to represent integers of arbitrary length. They are sometimes needed, because a regular number can't exceed <code>2<sup>53</sup></code> or be less than <code>-2<sup>53</sup></code>. As bigints are used in few special areas, we devote them a special chapter <info:bigint>.
 
-So here we'll talk about regular numbers. Let's expand our knowledge of them.
+So here we'll talk about regular numbers. Let's expand our knowledge of them. তাহলে, আমরা এখানে সাধারণ সংখ্যা নিয়ে আলোচনা করব। চলুন, আমরা সেগুলো নিয়ে কিছু জ্ঞান অর্জন করি।
 
-## More ways to write a number
+## More ways to write a number সংখ্যা লেখার আরো কিছু উপায়
 
-Imagine we need to write 1 billion. The obvious way is:
+Imagine we need to write 1 billion. The obvious way is: মনে করুন, আপনি ১ বিলিয়ন লিখতে চাচ্ছেন । লেখার সহজ উপায় হল:
 
 ```js
 let billion = 1000000000;
@@ -26,20 +26,20 @@ let billion = 1e9;  // 1 billion, literally: 1 and 9 zeroes
 alert( 7.3e9 );  // 7.3 billions (7,300,000,000)
 ```
 
-In other words, `"e"` multiplies the number by `1` with the given zeroes count.
+In other words, `"e"` multiplies the number by `1` with the given zeroes count. আরেকভাবে বললে, `"e"` সংখ্যাটিকে `1` দিয়ে যতটি শূন্য আছে তা দ্বারা গুণ করে। 
 
 ```js
 1e3 = 1 * 1000
 1.23e6 = 1.23 * 1000000
 ```
 
-Now let's write something very small. Say, 1 microsecond (one millionth of a second):
+Now let's write something very small. Say, 1 microsecond (one millionth of a second): চলুন, এখন খুব ছোট সংখ্যা লিখে দেখি। যেমন, ১ মাইক্রোসেকেন্ড (এক সেকেন্ডের মিলিয়ন ভাগের একভাগ)
 
 ```js
 let ms = 0.000001;
 ```
 
-Just like before, using `"e"` can help. If we'd like to avoid writing the zeroes explicitly, we could say the same as:
+Just like before, using `"e"` can help. If we'd like to avoid writing the zeroes explicitly, we could say the same as:আগের মত, `"e"` ব্যবহার করা সাহায্য করতে পারে। আমরা যদি সুনির্দিষ্ট করে শুন্য লিখতে না চাই, তাহলে একই জিনিস নিচের মত করে বলতে পারি:
 
 ```js
 let ms = 1e-6; // six zeroes to the left from 1
@@ -68,14 +68,14 @@ alert( 0xff ); // 255
 alert( 0xFF ); // 255 (the same, case doesn't matter)
 ```
 
-Binary and octal numeral systems are rarely used, but also supported using the `0b` and `0o` prefixes:
+Binary and octal numeral systems are rarely used, but also supported using the `0b` and `0o` prefixes: বাইনারি এবং অক্টাল সংখ্য়া সচরাচর ব্যবহার করা হয়না। কিন্তু  `0b` এবং `0o` উপসর্গ ব্যবহার করে লেখা যায় । 
 
 
 ```js run
-let a = 0b11111111; // binary form of 255
-let b = 0o377; // octal form of 255
+let a = 0b11111111; // binary form of 255 ২৫৫ এর বাইনারি রূপ
+let b = 0o377; // octal form of 255 ২৫৫ এর অক্টাল রূপ
 
-alert( a == b ); // true, the same number 255 at both sides
+alert( a == b ); // true, the same number 255 at both sides দুপাশেই একই সংখ্যা ২৫৫
 ```
 
 There are only 3 numeral systems with such support. For other numeral systems, we should use the function `parseInt` (which we will see later in this chapter).
@@ -84,7 +84,7 @@ There are only 3 numeral systems with such support. For other numeral systems, w
 
 The method `num.toString(base)` returns a string representation of `num` in the numeral system with the given `base`.
 
-For example:
+For example: উদাহরণস্বরূপ:
 ```js run
 let num = 255;
 
@@ -94,7 +94,7 @@ alert( num.toString(2) );   // 11111111
 
 The `base` can vary from `2` to `36`. By default it's `10`.
 
-Common use cases for this are:
+Common use cases for this are: এর সচরাচর ব্যবহৃত উদাহরণ:
 
 - **base=16** is used for hex colors, character encodings etc, digits can be `0..9` or `A..F`.
 - **base=2** is mostly for debugging bitwise operations, digits can be `0` or `1`.
@@ -144,7 +144,7 @@ These functions cover all of the possible ways to deal with the decimal part of 
 
 For instance, we have `1.2345` and want to round it to 2 digits, getting only `1.23`.
 
-There are two ways to do so:
+There are two ways to do so: এটি করার দুইটি উপায় আছে । 
 
 1. Multiply-and-divide.
 
@@ -206,7 +206,7 @@ alert( 0.1 + 0.2 ); // 0.30000000000000004
 
 Ouch! There are more consequences than an incorrect comparison here. Imagine you're making an e-shopping site and the visitor puts `$0.10` and `$0.20` goods into their cart. The order total will be `$0.30000000000000004`. That would surprise anyone.
 
-But why does this happen?
+But why does this happen? এটি কেন হল?
 
 A number is stored in memory in its binary form, a sequence of bits - ones and zeroes. But fractions like `0.1`, `0.2` that look simple in the decimal numeric system are actually unending fractions in their binary form.
 
@@ -218,7 +218,7 @@ There's just no way to store *exactly 0.1* or *exactly 0.2* using the binary sys
 
 The numeric format IEEE-754 solves this by rounding to the nearest possible number. These rounding rules normally don't allow us to see that "tiny precision loss", but it exists.
 
-We can see this in action:
+We can see this in action: এই অংশে আমরা দেখতে পাই: 
 ```js run
 alert( 0.1.toFixed(20) ); // 0.10000000000000000555
 ```
